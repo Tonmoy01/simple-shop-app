@@ -6,6 +6,7 @@ import {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
+  FILTER_PRODUCTS,
 } from '../constants/productConstants';
 
 export const getAllProducts = () => async (dispatch) => {
@@ -36,4 +37,8 @@ export const getProductDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: PRODUCT_DETAILS_FAIL, payload: error.message });
   }
+};
+
+export const filterProducts = (text) => (dispatch) => {
+  dispatch({ type: FILTER_PRODUCTS, payload: text });
 };

@@ -8,11 +8,23 @@ function Products() {
   const dispatch = useDispatch();
 
   const getProducts = useSelector((state) => state.productGetReducer);
-  const { loading, error, products } = getProducts;
+  const { loading, error, products, filtered } = getProducts;
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
+
+  // const filteredProducts = () => {
+  //   let sortedProducts = products;
+
+  //   if (filtered) {
+  //     sortedProducts = sortedProducts.filter((prod) =>
+  //       prod.title.toLowerCase().includes(filtered)
+  //     );
+  //   }
+  // };
+
+  console.log(filtered);
 
   const renderAllProducts = products.map((product) => (
     <div key={product.id} className='col-md-3 mb-4'>

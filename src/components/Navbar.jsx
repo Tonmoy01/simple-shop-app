@@ -1,14 +1,31 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
-import Products from '../products/Products';
+import { filterProducts } from '../actions/productActions';
 
 function Navbar() {
   const cart = useSelector((state) => state.cartReducer);
+  const allProducts = useSelector((state) => state.productGetReducer);
 
   const [search, setSearch] = useState('');
+  const text = useRef('');
+
+  const { filtered } = allProducts;
+
+  useEffect(() => {
+    if (filtered === null) {
+      text.current.value = '';
+    }
+  });
 
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  const onChange = (e) => {
+    if (text.current.value !== '') {
+      dispatch(filterProducts(e.target.value));
+    }
+  };
 
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3'>
@@ -31,15 +48,15 @@ function Navbar() {
           className='collapse navbar-collapse d-flex justify-content-end'
           id='navbarSupportedContent'
         >
-          {location.pathname === '/' && (
+          {location.pathname.split('/') !== 'cart' && (
             <form className='d-flex justify-content-center'>
               <input
+                ref={text}
                 className='form-control me-2'
                 type='search'
-                value={search}
                 placeholder='Search'
                 aria-label='Search'
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={onChange}
               />
             </form>
           )}

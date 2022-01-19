@@ -5,6 +5,7 @@ import {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
+  FILTER_PRODUCTS,
 } from '../constants/productConstants';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   product: {},
   loading: true,
   error: null,
+  filtered: null,
 };
 
 export const productGetReducer = (state = initialState, action) => {
@@ -22,6 +24,14 @@ export const productGetReducer = (state = initialState, action) => {
       return { loading: false, products: action.payload };
     case PRODUCT_GET_FAIL:
       return { loading: false, error: action.payload };
+    case FILTER_PRODUCTS:
+      return {
+        ...state,
+        filtered: state.products.filter((prod) => {
+          const regex = new RegExp(`${action.payload}`, 'gi');
+          return prod.title.match(regex);
+        }),
+      };
     default:
       return state;
   }
