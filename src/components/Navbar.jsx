@@ -29,7 +29,7 @@ function Navbar() {
           className='collapse navbar-collapse d-flex justify-content-end'
           id='navbarSupportedContent'
         >
-          {location.pathname.split('/')[1] !== cart && (
+          {location.pathname.split('/') && (
             <form className='d-flex justify-content-center'>
               <input
                 className='form-control me-2'

@@ -8,56 +8,41 @@ function Products() {
   const dispatch = useDispatch();
 
   const getProducts = useSelector((state) => state.productGetReducer);
-  const { loading, error, products, filterProduct } = getProducts;
-
-  const transformProduct = () => {
-    let sortedProducts = products;
-
-    if (filterProduct) {
-      sortedProducts = sortedProducts.filter((prod) =>
-        prod.title.toLowerCase().includes(filterProduct)
-      );
-    }
-    console.log(filterProduct);
-
-    return sortedProducts;
-  };
+  const { loading, error, products } = getProducts;
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
 
-  const renderAllProducts =
-    transformProduct() &&
-    products.map((product) => (
-      <div key={product.id} className='col-md-3 mb-4'>
-        <div
-          className='card text-center p-4 mb-4'
-          data-bs-toggle='tooltip'
-          data-bs-placement='top'
-          title={product.title}
-        >
-          <img
-            src={product.image}
-            className='card-img-top'
-            alt={product.title}
-            height='250px'
-          />
-          <div className='card-body'>
-            <h5 className='card-title mb-2 text-truncate'>{product.title}</h5>
-            <p className='card-text text-primary lead fw-bold'>
-              ${product.price}
-            </p>
-            <NavLink
-              to={`/product/${product.id}`}
-              className='btn btn-outline-dark'
-            >
-              View Details
-            </NavLink>
-          </div>
+  const renderAllProducts = products.map((product) => (
+    <div key={product.id} className='col-md-3 mb-4'>
+      <div
+        className='card text-center p-4 mb-4'
+        data-bs-toggle='tooltip'
+        data-bs-placement='top'
+        title={product.title}
+      >
+        <img
+          src={product.image}
+          className='card-img-top'
+          alt={product.title}
+          height='250px'
+        />
+        <div className='card-body'>
+          <h5 className='card-title mb-2 text-truncate'>{product.title}</h5>
+          <p className='card-text text-primary lead fw-bold'>
+            ${product.price}
+          </p>
+          <NavLink
+            to={`/product/${product.id}`}
+            className='btn btn-outline-dark'
+          >
+            View Details
+          </NavLink>
         </div>
       </div>
-    ));
+    </div>
+  ));
 
   return (
     <div className='container'>

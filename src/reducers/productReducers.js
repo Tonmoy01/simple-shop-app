@@ -12,7 +12,6 @@ const initialState = {
   product: {},
   loading: true,
   error: null,
-  filterProduct: '',
 };
 
 export const productGetReducer = (state = initialState, action) => {
@@ -21,11 +20,6 @@ export const productGetReducer = (state = initialState, action) => {
       return { loading: true, products: [] };
     case PRODUCT_GET_SUCCESS:
       return { loading: false, products: action.payload };
-    case 'FILTER_BY_SEARCH':
-      return {
-        ...state,
-        filterProduct: action.payload,
-      };
     case PRODUCT_GET_FAIL:
       return { loading: false, error: action.payload };
     default:
