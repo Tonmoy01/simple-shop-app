@@ -1,10 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
+import Products from '../products/Products';
 
 function Navbar() {
   const cart = useSelector((state) => state.cartReducer);
 
-  const dispatch = useDispatch();
+  const [search, setSearch] = useState('');
 
   const location = useLocation();
 
@@ -29,19 +31,15 @@ function Navbar() {
           className='collapse navbar-collapse d-flex justify-content-end'
           id='navbarSupportedContent'
         >
-          {location.pathname.split('/') && (
+          {location.pathname === '/' && (
             <form className='d-flex justify-content-center'>
               <input
                 className='form-control me-2'
                 type='search'
+                value={search}
                 placeholder='Search'
                 aria-label='Search'
-                onChange={(e) => {
-                  dispatch({
-                    type: 'FILTER_BY_SEARCH',
-                    payload: e.target.value,
-                  });
-                }}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </form>
           )}
