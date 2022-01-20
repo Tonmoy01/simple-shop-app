@@ -43,11 +43,12 @@ function Navbar() {
         >
           <span className='navbar-toggler-icon'></span>
         </button>
+
         <div
-          className='collapse navbar-collapse d-flex justify-content-end'
+          className='collapse navbar-collapse d-flex'
           id='navbarSupportedContent'
         >
-          <form className='d-flex justify-content-center'>
+          <form className='mx-auto'>
             <input
               ref={text}
               className='form-control me-2'
@@ -57,7 +58,6 @@ function Navbar() {
               onChange={onChange}
             />
           </form>
-
           <ul className='navbar-nav d-flex mb-2 mb-lg-0'>
             <li className='nav-item'>
               <NavLink className='nav-link active' aria-current='page' to='/'>

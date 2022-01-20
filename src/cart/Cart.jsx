@@ -51,7 +51,7 @@ function Cart() {
                           </p>
                           <div className='d-flex'>
                             <button
-                              className='btn btn-outline-dark'
+                              className='btn btn-outline-danger'
                               onClick={() => handleDelete(item)}
                             >
                               <i className='fa fa-minus'></i>
@@ -63,7 +63,7 @@ function Cart() {
                               readOnly
                             />
                             <button
-                              className='btn btn-outline-dark'
+                              className='btn btn-outline-success'
                               onClick={() => handleAdd(item)}
                             >
                               <i className='fa fa-plus'></i>
@@ -82,7 +82,7 @@ function Cart() {
                   Subtotal:{' '}
                   <span>
                     {cart.reduce((acc, item) => acc + Number(item.qty), 0)}
-                    (Units)
+                    (Items)
                   </span>
                 </p>
                 <p className='lead fw-bold'>

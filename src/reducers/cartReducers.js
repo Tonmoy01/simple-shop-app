@@ -14,7 +14,6 @@ export const cartReducer = (state = cart, action) => {
           x.id === product.id ? { ...x, qty: x.qty + 1 } : x
         );
       } else {
-        const product = action.payload;
         return [
           ...state,
           {
