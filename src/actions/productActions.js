@@ -7,6 +7,7 @@ import {
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
   FILTER_PRODUCTS,
+  CLEAR_FILTER,
 } from '../constants/productConstants';
 
 export const getAllProducts = () => async (dispatch) => {
@@ -41,4 +42,8 @@ export const getProductDetails = (id) => async (dispatch) => {
 
 export const filterProducts = (text) => (dispatch) => {
   dispatch({ type: FILTER_PRODUCTS, payload: text });
+};
+
+export const clearFilter = () => (dispatch) => {
+  dispatch({ type: CLEAR_FILTER });
 };

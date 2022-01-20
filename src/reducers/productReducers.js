@@ -6,6 +6,7 @@ import {
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
   FILTER_PRODUCTS,
+  CLEAR_FILTER,
 } from '../constants/productConstants';
 
 const initialState = {
@@ -31,6 +32,11 @@ export const productGetReducer = (state = initialState, action) => {
           const regex = new RegExp(`${action.payload}`, 'gi');
           return prod.title.match(regex);
         }),
+      };
+    case CLEAR_FILTER:
+      return {
+        ...state,
+        filtered: action.payload,
       };
     default:
       return state;

@@ -1,14 +1,14 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
-import { filterProducts } from '../actions/productActions';
+import { NavLink } from 'react-router-dom';
+import { filterProducts, clearFilter } from '../actions/productActions';
 
 function Navbar() {
+  const dispatch = useDispatch();
+  const text = useRef('');
+
   const cart = useSelector((state) => state.cartReducer);
   const allProducts = useSelector((state) => state.productGetReducer);
-
-  const [search, setSearch] = useState('');
-  const text = useRef('');
 
   const { filtered } = allProducts;
 
@@ -18,12 +18,11 @@ function Navbar() {
     }
   });
 
-  const location = useLocation();
-  const dispatch = useDispatch();
-
   const onChange = (e) => {
     if (text.current.value !== '') {
       dispatch(filterProducts(e.target.value));
+    } else {
+      dispatch(clearFilter());
     }
   };
 
@@ -48,18 +47,17 @@ function Navbar() {
           className='collapse navbar-collapse d-flex justify-content-end'
           id='navbarSupportedContent'
         >
-          {location.pathname.split('/') !== 'cart' && (
-            <form className='d-flex justify-content-center'>
-              <input
-                ref={text}
-                className='form-control me-2'
-                type='search'
-                placeholder='Search'
-                aria-label='Search'
-                onChange={onChange}
-              />
-            </form>
-          )}
+          <form className='d-flex justify-content-center'>
+            <input
+              ref={text}
+              className='form-control me-2'
+              type='search'
+              placeholder='Search'
+              aria-label='Search'
+              onChange={onChange}
+            />
+          </form>
+
           <ul className='navbar-nav d-flex mb-2 mb-lg-0'>
             <li className='nav-item'>
               <NavLink className='nav-link active' aria-current='page' to='/'>
