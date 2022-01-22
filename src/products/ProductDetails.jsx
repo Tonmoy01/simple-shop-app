@@ -1,18 +1,23 @@
 import { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import Rating from '../components/Rating';
 import Loader from '../components/Loader';
 import { getProductDetails } from '../actions/productActions';
 import { addToCart } from '../actions/cartActions';
+
+import { PRODUCT_DETAILS_RESET } from '../constants/productConstants';
 
 function ProductDetails() {
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetailsReducer);
   const { id } = useParams();
 
-  const { loading, error, product } = productDetails;
+  const { loading, product } = productDetails;
 
   useEffect(() => {
+    dispatch({ type: PRODUCT_DETAILS_RESET });
+
     dispatch(getProductDetails(id));
   }, [dispatch]);
 
@@ -28,9 +33,9 @@ function ProductDetails() {
         </NavLink>
         <div className='row'>
           {loading ? (
-            <Loader />
-          ) : error ? (
-            <h2>{error}</h2>
+            <div className='text-center'>
+              <Loader />
+            </div>
           ) : (
             <>
               <div className='col md-6 my-5'>
@@ -46,12 +51,15 @@ function ProductDetails() {
                   {product.category}
                 </h4>
                 <h1 className='display-5'>{product.title}</h1>
-                <p className='lead'>
-                  Rating {product.rating && product.rating.rate}
-                  <i className='fa fa-star'></i>
-                </p>
+                <div className='lead'>
+                  <Rating
+                    value={product.rating.rate}
+                    text={`${product.rating.count} reviews`}
+                  />
+                </div>
                 <h3 className='display-6 fw-bold my-4'>$ {product.price}</h3>
                 <p className='lead'>{product.description}</p>
+
                 <button
                   className='btn btn-outline-dark px-4 py-2'
                   onClick={() => addProduct(product)}

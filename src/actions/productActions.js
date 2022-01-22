@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {
-  PRODUCT_GET_REQUEST,
-  PRODUCT_GET_SUCCESS,
-  PRODUCT_GET_FAIL,
+  PRODUCTS_GET_REQUEST,
+  PRODUCTS_GET_SUCCESS,
+  PRODUCTS_GET_FAIL,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
@@ -12,16 +12,17 @@ import {
 
 export const getAllProducts = () => async (dispatch) => {
   try {
-    dispatch({ type: PRODUCT_GET_REQUEST });
+    dispatch({ type: PRODUCTS_GET_REQUEST });
 
     const { data } = await axios.get(`https://fakestoreapi.com/products`);
 
     dispatch({
-      type: PRODUCT_GET_SUCCESS,
+      type: PRODUCTS_GET_SUCCESS,
       payload: data,
     });
   } catch (error) {
-    dispatch({ type: PRODUCT_GET_FAIL, payload: error.message });
+    dispatch({ type: PRODUCTS_GET_FAIL });
+    console.log(error);
   }
 };
 
@@ -36,7 +37,8 @@ export const getProductDetails = (id) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    dispatch({ type: PRODUCT_DETAILS_FAIL, payload: error.message });
+    dispatch({ type: PRODUCT_DETAILS_FAIL });
+    console.log(error);
   }
 };
 

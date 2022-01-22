@@ -8,7 +8,7 @@ function Navbar() {
   const text = useRef('');
 
   const cart = useSelector((state) => state.cartReducer);
-  const allProducts = useSelector((state) => state.productGetReducer);
+  const allProducts = useSelector((state) => state.productsGetReducer);
 
   const { filtered } = allProducts;
 
@@ -33,7 +33,7 @@ function Navbar() {
           ShopApp
         </NavLink>
         <button
-          className='navbar-toggler'
+          className='navbar-toggler mb-2'
           type='button'
           data-bs-toggle='collapse'
           data-bs-target='#navbarSupportedContent'
@@ -43,12 +43,8 @@ function Navbar() {
         >
           <span className='navbar-toggler-icon'></span>
         </button>
-
-        <div
-          className='collapse navbar-collapse d-flex'
-          id='navbarSupportedContent'
-        >
-          <form className='mx-auto'>
+        <div className='collapse navbar-collapse' id='navbarSupportedContent'>
+          <form className='d-flex' style={{ margin: '0 auto' }}>
             <input
               ref={text}
               className='form-control me-2'
@@ -58,7 +54,10 @@ function Navbar() {
               onChange={onChange}
             />
           </form>
-          <ul className='navbar-nav d-flex mb-2 mb-lg-0'>
+          <ul
+            className='navbar-nav mb-2 mb-lg-0 justify-content-end'
+            style={{ marginLeft: 'auto' }}
+          >
             <li className='nav-item'>
               <NavLink className='nav-link active' aria-current='page' to='/'>
                 <i className='fa fa-home'></i>Home
@@ -71,7 +70,7 @@ function Navbar() {
             </li>
             <li className='nav-item'>
               <NavLink to='/cart' className='nav-link'>
-                <i className='fa fa-shopping-cart'></i> Cart ({cart.length})
+                <i className='fa fa-shopping-cart'></i> ({cart.length})
               </NavLink>
             </li>
           </ul>

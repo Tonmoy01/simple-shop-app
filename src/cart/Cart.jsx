@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, deleteToCart } from '../actions/cartActions';
+import { NavLink } from 'react-router-dom';
+import {
+  addToCart,
+  deleteToCart,
+  deleteFromCartItem,
+} from '../actions/cartActions';
 
 function Cart() {
   const dispatch = useDispatch();
@@ -14,16 +19,25 @@ function Cart() {
     dispatch(deleteToCart(item));
   };
 
+  const deleteCartItem = (id) => {
+    dispatch(deleteFromCartItem(id));
+  };
+
   return (
     <>
       {cart.length === 0 ? (
-        <h2 className='mt-5'>Your cart is empty</h2>
+        <div className='container'>
+          <h2 className='mt-5'>Your cart is empty</h2>
+          <NavLink className='btn btn-dark my-3' to='/'>
+            Go Back
+          </NavLink>
+        </div>
       ) : (
         <>
           <div className='container'>
-            <h2 className='mt-5'>
-              Your Cart: <b>{cart.length}</b>
-            </h2>
+            <NavLink className='btn btn-dark my-3' to='/'>
+              Go Back
+            </NavLink>
           </div>
           <div className='container-fluid'>
             <div className='row d-flex justify-content-between'>
@@ -61,6 +75,7 @@ function Cart() {
                               className='form-control text-center d-inline'
                               value={item.qty}
                               readOnly
+                              style={{ width: '65px' }}
                             />
                             <button
                               className='btn btn-outline-success'
@@ -68,6 +83,11 @@ function Cart() {
                             >
                               <i className='fa fa-plus'></i>
                             </button>
+                            <i
+                              className='fas fa-trash mt-2 mx-3'
+                              style={{ fontSize: '20px', cursor: 'pointer' }}
+                              onClick={() => deleteCartItem(item.id)}
+                            ></i>
                           </div>
                         </div>
                       </div>
@@ -98,7 +118,7 @@ function Cart() {
                 <hr />
 
                 <div className='d-grid'>
-                  <button className='btn fw-bold btn-warning text-light '>
+                  <button className='btn fw-bold btn-dark text-light '>
                     Check out
                   </button>
                 </div>

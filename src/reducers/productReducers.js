@@ -1,12 +1,13 @@
 import {
-  PRODUCT_GET_REQUEST,
-  PRODUCT_GET_SUCCESS,
-  PRODUCT_GET_FAIL,
+  PRODUCTS_GET_REQUEST,
+  PRODUCTS_GET_SUCCESS,
+  PRODUCTS_GET_FAIL,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
   FILTER_PRODUCTS,
   CLEAR_FILTER,
+  PRODUCT_DETAILS_RESET,
 } from '../constants/productConstants';
 
 const initialState = {
@@ -17,13 +18,13 @@ const initialState = {
   filtered: null,
 };
 
-export const productGetReducer = (state = initialState, action) => {
+export const productsGetReducer = (state = initialState, action) => {
   switch (action.type) {
-    case PRODUCT_GET_REQUEST:
+    case PRODUCTS_GET_REQUEST:
       return { loading: true, products: [] };
-    case PRODUCT_GET_SUCCESS:
+    case PRODUCTS_GET_SUCCESS:
       return { loading: false, products: action.payload };
-    case PRODUCT_GET_FAIL:
+    case PRODUCTS_GET_FAIL:
       return { loading: false, error: action.payload };
     case FILTER_PRODUCTS:
       return {
@@ -51,6 +52,8 @@ export const productDetailsReducer = (state = initialState, action) => {
       return { loading: false, product: action.payload };
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: action.payload };
+    case PRODUCT_DETAILS_RESET:
+      return {};
     default:
       return state;
   }

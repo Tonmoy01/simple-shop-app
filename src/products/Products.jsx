@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { getAllProducts } from '../actions/productActions';
+import Rating from '../components/Rating';
 
 function Products() {
   const dispatch = useDispatch();
 
-  const getProducts = useSelector((state) => state.productGetReducer);
-  const { loading, error, products, filtered } = getProducts;
+  const getProducts = useSelector((state) => state.productsGetReducer);
+  const { loading, products, filtered } = getProducts;
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -66,6 +67,10 @@ function Products() {
                 <h5 className='card-title mb-2 text-truncate'>
                   {product.title}
                 </h5>
+                <Rating
+                  value={product.rating.rate}
+                  text={`${product.rating.count} reviews`}
+                />
                 <p className='card-text text-primary lead fw-bold'>
                   ${product.price}
                 </p>
@@ -90,9 +95,9 @@ function Products() {
         </div>
       </div>
       {loading ? (
-        <Loader />
-      ) : error ? (
-        <h3>{error}</h3>
+        <div className='text-center'>
+          <Loader />
+        </div>
       ) : (
         <div className='row'>{renderAllProducts}</div>
       )}
