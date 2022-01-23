@@ -2,7 +2,6 @@ import { Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import About from './pages/About';
-import NotFound from './pages/NotFound';
 import ProductDetails from './products/ProductDetails';
 import Cart from './cart/Cart';
 
@@ -16,7 +15,6 @@ function App() {
         <Route exact path='/product/:id' component={ProductDetails} />
         <Route exact path='/cart' component={Cart} />
         <Route exact path='/about' component={About} />
-        <Route component={NotFound} />
       </Switch>
     </>
   );

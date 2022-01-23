@@ -13,13 +13,13 @@ function Slider() {
       infiniteLoop={true}
     >
       <div>
-        <img src={Banner} />
+        <img src={Banner} alt='Banner' />
       </div>
       <div>
-        <img src={Banner1} />
+        <img src={Banner1} alt='Banner1' />
       </div>
       <div>
-        <img src={Banner2} />
+        <img src={Banner2} alt='Banner2' />
       </div>
     </Carousel>
   );

@@ -19,7 +19,7 @@ function ProductDetails() {
     dispatch({ type: PRODUCT_DETAILS_RESET });
 
     dispatch(getProductDetails(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const addProduct = (product) => {
     dispatch(addToCart(product));
