@@ -1,7 +1,7 @@
 const About = () => {
   return (
     <div>
-      <h1 className='display-4'>
+      <h1 className='display-4 text-center'>
         This is a simple shop app, using by{' '}
         <a href='http://fakestoreapi.com/'>fakestoreapi</a>
       </h1>

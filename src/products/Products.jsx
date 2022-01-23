@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { getAllProducts } from '../actions/productActions';
-import Rating from '../components/Rating';
+import ProductList from './ProductList';
 
 function Products() {
   const dispatch = useDispatch();
@@ -14,76 +13,6 @@ function Products() {
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
-
-  const renderAllProducts =
-    filtered !== undefined
-      ? filtered &&
-        filtered.map((product) => (
-          <div key={product.id} className='col-md-3 mb-4'>
-            <div
-              className='card text-center p-4 mb-4'
-              data-bs-toggle='tooltip'
-              data-bs-placement='top'
-              title={product.title}
-            >
-              <img
-                src={product.image}
-                className='card-img-top'
-                alt={product.title}
-                height='250px'
-              />
-              <div className='card-body'>
-                <h5 className='card-title mb-2 text-truncate'>
-                  {product.title}
-                </h5>
-                <p className='card-text text-primary lead fw-bold'>
-                  ${product.price}
-                </p>
-                <NavLink
-                  to={`/product/${product.id}`}
-                  className='btn btn-outline-dark'
-                >
-                  View Details
-                </NavLink>
-              </div>
-            </div>
-          </div>
-        ))
-      : products.map((product) => (
-          <div key={product.id} className='col-md-3 mb-4'>
-            <div
-              className='card text-center p-4 mb-4'
-              data-bs-toggle='tooltip'
-              data-bs-placement='top'
-              title={product.title}
-            >
-              <img
-                src={product.image}
-                className='card-img-top'
-                alt={product.title}
-                height='250px'
-              />
-              <div className='card-body'>
-                <h5 className='card-title mb-2 text-truncate'>
-                  {product.title}
-                </h5>
-                <Rating
-                  value={product.rating.rate}
-                  text={`${product.rating.count} reviews`}
-                />
-                <p className='card-text text-primary lead fw-bold'>
-                  ${product.price}
-                </p>
-                <NavLink
-                  to={`/product/${product.id}`}
-                  className='btn btn-outline-dark'
-                >
-                  View Details
-                </NavLink>
-              </div>
-            </div>
-          </div>
-        ));
 
   return (
     <div className='container'>
@@ -99,7 +28,16 @@ function Products() {
           <Loader />
         </div>
       ) : (
-        <div className='row'>{renderAllProducts}</div>
+        <div className='row'>
+          {filtered !== undefined
+            ? filtered &&
+              filtered.map((product) => (
+                <ProductList key={product.id} product={product} />
+              ))
+            : products.map((product) => (
+                <ProductList key={product.id} product={product} />
+              ))}
+        </div>
       )}
     </div>
   );

@@ -39,7 +39,7 @@ function Cart() {
               Go Back
             </NavLink>
           </div>
-          <div className='container-fluid'>
+          <div className='container'>
             <div className='row d-flex justify-content-between'>
               <div className='col-md-8'>
                 {cart.map((item, index) => (
